@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var customizeBootstrap = require('gulp-customize-bootstrap');
 var less = require('gulp-less');
+var concat = require('gulp-concat');
 
 
 // compilando o bootstrap
@@ -11,4 +12,9 @@ gulp.task('compileBootstrap', function() {
       .pipe(gulp.dest('./dist/css/'));
   });
 
-gulp.task('default', ['compileBootstrap'])
+  gulp.task('lib', function() {
+    return gulp.src(['./node_modules/jquery/dist/jquery.min.js'])  
+    .pipe(concat('lib.js'))   
+      .pipe(gulp.dest('./dist/js/'));
+  });
+gulp.task('default', ['compileBootstrap', 'lib'])
